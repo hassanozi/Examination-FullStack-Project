@@ -1,0 +1,98 @@
+.full_height {
+  height: 93vh;
+}
+
+label {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+/* Sign buttons */
+.Sign {
+  padding: 10px 30px;
+  font-weight: 700;
+  color: #fff;
+  border: 4px solid #fff;
+  border-radius: 10px;
+  background-color: #333333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.Sign:hover {
+  border-color: #00ff7f;
+}
+
+.Sign.active {
+  border-color: #00ff7f;
+}
+
+/* Inputs */
+input,
+select {
+  background: transparent;
+  color: white;
+  border: 4px solid white;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+input::placeholder {
+  color: #ccc;
+}
+
+select option {
+  color: black;
+}
+
+/* Submit button */
+.submit {
+  font-size: 20px;
+  font-weight: 700;
+  background-color: #fff;
+  padding: 12px 18px;
+  border-radius: 15px;
+  color: #333;
+  transition: 0.6s ease;
+  border: 3px solid #fff;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.submit:hover {
+  border-color: #fff;
+}
+
+.bg-true {
+  position: absolute;
+  inset: 0;
+  background-color: #00ff7f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: 0.4s ease;
+  border-radius: 15px;
+}
+
+.submit:hover .bg-true {
+  opacity: 1;
+}
+
+/* Floating image animation */
+@keyframes upAndDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-40px);
+  }
+}
+
+#image-container {
+  animation: upAndDown 3s ease-in-out infinite;
+}

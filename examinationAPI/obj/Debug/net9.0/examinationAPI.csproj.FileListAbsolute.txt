@@ -330,3 +330,7 @@ D:\Tests\Upskilling\JSB-2\Examination-FullStack-Project\examinationAPI\obj\Debug
 D:\Tests\Upskilling\JSB-2\Examination-FullStack-Project\examinationAPI\obj\Debug\net9.0\examinationAPI.pdb
 D:\Tests\Upskilling\JSB-2\Examination-FullStack-Project\examinationAPI\obj\Debug\net9.0\examinationAPI.genruntimeconfig.cache
 D:\Tests\Upskilling\JSB-2\Examination-FullStack-Project\examinationAPI\obj\Debug\net9.0\ref\examinationAPI.dll
+D:\Tests\Upskilling\JSB-2\Examination-FullStack-Project\examinationAPI\obj\Debug\net9.0\examinationAPI.sourcelink.json
+D:\Tests\Upskilling\JSB-2\Examination-FullStack-Project\examinationAPI\bin\Debug\net9.0\Autofac.dll
+D:\Tests\Upskilling\JSB-2\Examination-FullStack-Project\examinationAPI\bin\Debug\net9.0\Autofac.Extensions.DependencyInjection.dll
+D:\Tests\Upskilling\JSB-2\Examination-FullStack-Project\examinationAPI\bin\Debug\net9.0\System.Diagnostics.DiagnosticSource.dll

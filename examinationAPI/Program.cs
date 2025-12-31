@@ -1,8 +1,13 @@
 using System.Diagnostics;
 using System.Text;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using examinationAPI.Data;
 using examinationAPI.DTOs.Courses;
+using examinationAPI.DTOs.Exams;
+using examinationAPI.DTOs.Questions;
+using examinationAPI.DTOs.Users;
 using examinationAPI.Helpers;
 using examinationAPI.MiddleWares;
 using examinationAPI.Repositories;
@@ -22,16 +27,24 @@ builder.Services.AddDbContext<Context>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-    .LogTo(log => Debug.WriteLine(log))
+    .LogTo(log => Debug.WriteLine(log),LogLevel.Information)
     .EnableSensitiveDataLogging(true);
 });
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<CourseService>();
-builder.Services.AddScoped<ExamService>();
-builder.Services.AddScoped<QuestionService>();
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
+   builder.RegisterModule(new AutoFacModule()));
 
-builder.Services.AddAutoMapper(typeof(CourseProfile).Assembly);
+// builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+// builder.Services.AddScoped<CourseService>();
+// builder.Services.AddScoped<ExamService>();
+// builder.Services.AddScoped<QuestionService>();
+// builder.Services.AddScoped<UserService>();
+
+// builder.Services.AddAutoMapper(typeof(CourseProfile).Assembly);
+// builder.Services.AddAutoMapper(typeof(ExamProfile).Assembly);
+// builder.Services.AddAutoMapper(typeof(QuestionProfile).Assembly);
+// builder.Services.AddAutoMapper(typeof(UserProfile).Assembly);
 
 
 builder.Services.AddScoped<GlobalErrorHandlerMiddleware>();
@@ -78,7 +91,9 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-MapperHelper.Mapper = app.Services.GetService<IMapper>();
+MapperHelper.Mapper = app.Services.GetRequiredService<IMapper>();
+
+// MapperHelper.Mapper = app.Services.GetService<IMapper>();
 
 app.MapControllers();
 

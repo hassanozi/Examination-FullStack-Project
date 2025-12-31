@@ -13,6 +13,7 @@ namespace examinationAPI.Repositories
         IQueryable<T> GetAll();
         Task<T?> GetById(int id);
         Task<T?> GetWithTrackingById(int id);
+        Task<T?> GetWithTracking(Expression<Func<T, bool>> predicate);
         bool Add(T entity);
         void Update(T entity);
         void SoftDelete(T entity);

@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "8v3c3AaeiyA=",
+  "dgSpecHash": "1H4NRMH9DR4=",
   "success": true,
   "projectFilePath": "D:\\Tests\\Upskilling\\JSB-2\\Examination-FullStack-Project\\examinationAPI\\examinationAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Hassan\\.nuget\\packages\\autofac\\9.0.0\\autofac.9.0.0.nupkg.sha512",
+    "C:\\Users\\Hassan\\.nuget\\packages\\autofac.extensions.dependencyinjection\\10.0.0\\autofac.extensions.dependencyinjection.10.0.0.nupkg.sha512",
     "C:\\Users\\Hassan\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\Hassan\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Hassan\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
@@ -61,7 +63,7 @@
     "C:\\Users\\Hassan\\.nuget\\packages\\system.composition.runtime\\7.0.0\\system.composition.runtime.7.0.0.nupkg.sha512",
     "C:\\Users\\Hassan\\.nuget\\packages\\system.composition.typedparts\\7.0.0\\system.composition.typedparts.7.0.0.nupkg.sha512",
     "C:\\Users\\Hassan\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
-    "C:\\Users\\Hassan\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
+    "C:\\Users\\Hassan\\.nuget\\packages\\system.diagnostics.diagnosticsource\\10.0.0\\system.diagnostics.diagnosticsource.10.0.0.nupkg.sha512",
     "C:\\Users\\Hassan\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
     "C:\\Users\\Hassan\\.nuget\\packages\\system.formats.asn1\\9.0.6\\system.formats.asn1.9.0.6.nupkg.sha512",
     "C:\\Users\\Hassan\\.nuget\\packages\\system.identitymodel.tokens.jwt\\8.14.0\\system.identitymodel.tokens.jwt.8.14.0.nupkg.sha512",

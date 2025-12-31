@@ -13,9 +13,10 @@ namespace examinationAPI.Models
         public short Grade { get; set; }
 
 
-        public int InstructorId { get; set; }
-        public required HashSet<Choice> Choices { get; set; }
-        public required HashSet<ExamQuestion> ExamQuestions { get; set; }
+        public int? UserId { get; set; }
+        public User? user{ get; set; }
+        public  HashSet<Choice> Choices { get; set; } = new HashSet<Choice>();
+        public  HashSet<ExamQuestion> ExamQuestions { get; set; } = new HashSet<ExamQuestion>();
 
     }
 }

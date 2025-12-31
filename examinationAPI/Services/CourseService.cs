@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using examinationAPI.DTOs.Courses;
+using examinationAPI.Helpers;
 using examinationAPI.Models;
 using examinationAPI.Repositories;
 using examinationAPI.ViewModels;
@@ -38,39 +39,47 @@ namespace examinationAPI.Services
 
         public async Task<bool> AddPreRequisetCourse (AddPreRequisetCourseDTO preRequisetCourse)
         {
-           var newPreRequisetCourse = mapper.Map<Course>(preRequisetCourse);
+           var newPreRequisetCourse = preRequisetCourse.MapOne<Course>();
            Courserepo.Add(newPreRequisetCourse); 
            await Courserepo.SaveChanges();
 
             return true;
         }
 
-        public bool update(Course course)
+        public async Task<bool> Update(UpdateCourseDTO updateCourseDTO)
         {
-            Courserepo.Update(course);
+            var course = await Courserepo.GetWithTrackingById(updateCourseDTO.CourseId);
+
+            if (course == null)
+                return false;
+            
+            updateCourseDTO.MapTo(course); 
+
+            await Courserepo.SaveChanges();
             return true;
         }
 
+
         public IEnumerable<GetAllCoursesDTO> GetAllCourses(string? orderBy = null, bool desc = false)
         {
-            var courses = Courserepo.GetAll()
-            .Select(c => new GetAllCoursesDTO
-            {
-                CourseId = c.Id,
-                Title = c.Title,
-                Description = c.Description,
-                creditHours = c.creditHours,
-                PreRequisetTitle = c.PrerequisiteCourse != null
-                ? c.PrerequisiteCourse.Title
-                : null,
+            var courses = Courserepo.GetAll().Map<GetAllCoursesDTO>();
+            // .Select(c => new GetAllCoursesDTO
+            // {
+            //     CourseId = c.Id,
+            //     Title = c.Title,
+            //     Description = c.Description,
+            //     creditHours = c.creditHours,
+            //     PreRequisetTitle = c.PrerequisiteCourse != null
+            //     ? c.PrerequisiteCourse.Title
+            //     : null,
 
-                // Instructors = c.InstructorCourses
-                //     .Select(ci => new GetInstructorInfoDTO
-                //     {
-                //         FirstName = ci.Instructors.FirstName,
-                //         SecondName = ci.Instructors.SecondName,
-                //     }).FirstOrDefault()
-            });
+            //     // Instructors = c.InstructorCourses
+            //     //     .Select(ci => new GetInstructorInfoDTO
+            //     //     {
+            //     //         FirstName = ci.Instructors.FirstName,
+            //     //         SecondName = ci.Instructors.SecondName,
+            //     //     }).FirstOrDefault()
+            // });
 
             if (!string.IsNullOrEmpty(orderBy))
             {
@@ -154,7 +163,7 @@ namespace examinationAPI.Services
         {
             var predicate = MyPredicateBuilder(courseid, courseName, courseHourse);
             var course = await Courserepo.Get(predicate);
-            return mapper.Map<GetCourseDTO>(course);
+            return course.MapOne<GetCourseDTO>();
         }
 
         public  async Task<bool> DeleteCourse(int courseId)

@@ -12,8 +12,8 @@ using examinationAPI.Data;
 namespace examinationAPI.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20251220132538_iniat")]
-    partial class iniat
+    [Migration("20251231134415_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,7 +99,7 @@ namespace examinationAPI.Migrations
                     b.Property<bool>("IsRightAnswer")
                         .HasColumnType("bit");
 
-                    b.Property<int>("QuestionsId")
+                    b.Property<int?>("QuestionsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -180,7 +180,7 @@ namespace examinationAPI.Migrations
                     b.Property<int>("CategoryType")
                         .HasColumnType("int");
 
-                    b.Property<int>("CourseId")
+                    b.Property<int?>("CourseId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -196,15 +196,8 @@ namespace examinationAPI.Migrations
                     b.Property<int>("DifficultyLevel")
                         .HasColumnType("int");
 
-                    b.Property<TimeOnly>("Duration")
+                    b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
-
-                    b.Property<string>("GroupName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("InstructorId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -302,15 +295,15 @@ namespace examinationAPI.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
-                    b.Property<string>("GroupName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -323,7 +316,7 @@ namespace examinationAPI.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("examinationAPI.Models.Permission", b =>
+            modelBuilder.Entity("examinationAPI.Models.GroupExam", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -337,15 +330,17 @@ namespace examinationAPI.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -355,7 +350,11 @@ namespace examinationAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Permissions");
+                    b.HasIndex("ExamId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("GroupExam");
                 });
 
             modelBuilder.Entity("examinationAPI.Models.Question", b =>
@@ -382,9 +381,6 @@ namespace examinationAPI.Migrations
                     b.Property<short>("Grade")
                         .HasColumnType("smallint");
 
-                    b.Property<int>("InstructorId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -401,91 +397,17 @@ namespace examinationAPI.Migrations
                     b.Property<int>("UpdatedBy")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Title")
                         .IsUnique();
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Questions");
-                });
-
-            modelBuilder.Entity("examinationAPI.Models.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("examinationAPI.Models.RolePermission", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Permission")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PermissionsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PermissionsId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("examinationAPI.Models.User", b =>
@@ -524,7 +446,7 @@ namespace examinationAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int>("SystemRole")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -538,8 +460,6 @@ namespace examinationAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -561,11 +481,20 @@ namespace examinationAPI.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("EnrolledAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("FinalGrade")
+                        .HasColumnType("float");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -693,9 +622,7 @@ namespace examinationAPI.Migrations
                 {
                     b.HasOne("examinationAPI.Models.Question", "Questions")
                         .WithMany("Choices")
-                        .HasForeignKey("QuestionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QuestionsId");
 
                     b.Navigation("Questions");
                 });
@@ -714,9 +641,7 @@ namespace examinationAPI.Migrations
                 {
                     b.HasOne("examinationAPI.Models.Course", "Courses")
                         .WithMany("Exams")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CourseId");
 
                     b.Navigation("Courses");
                 });
@@ -740,34 +665,32 @@ namespace examinationAPI.Migrations
                     b.Navigation("Questions");
                 });
 
-            modelBuilder.Entity("examinationAPI.Models.RolePermission", b =>
+            modelBuilder.Entity("examinationAPI.Models.GroupExam", b =>
                 {
-                    b.HasOne("examinationAPI.Models.Permission", "Permissions")
-                        .WithMany("RolePermissions")
-                        .HasForeignKey("PermissionsId")
+                    b.HasOne("examinationAPI.Models.Exam", "Exam")
+                        .WithMany("GroupExams")
+                        .HasForeignKey("ExamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("examinationAPI.Models.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
+                    b.HasOne("examinationAPI.Models.Group", "Group")
+                        .WithMany("GroupExams")
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Permissions");
+                    b.Navigation("Exam");
 
-                    b.Navigation("Role");
+                    b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("examinationAPI.Models.User", b =>
+            modelBuilder.Entity("examinationAPI.Models.Question", b =>
                 {
-                    b.HasOne("examinationAPI.Models.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("examinationAPI.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
-                    b.Navigation("Role");
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("examinationAPI.Models.UserCourse", b =>
@@ -840,6 +763,8 @@ namespace examinationAPI.Migrations
                 {
                     b.Navigation("ExamQuestions");
 
+                    b.Navigation("GroupExams");
+
                     b.Navigation("UserExams");
                 });
 
@@ -850,12 +775,9 @@ namespace examinationAPI.Migrations
 
             modelBuilder.Entity("examinationAPI.Models.Group", b =>
                 {
-                    b.Navigation("UserGroups");
-                });
+                    b.Navigation("GroupExams");
 
-            modelBuilder.Entity("examinationAPI.Models.Permission", b =>
-                {
-                    b.Navigation("RolePermissions");
+                    b.Navigation("UserGroups");
                 });
 
             modelBuilder.Entity("examinationAPI.Models.Question", b =>
@@ -863,11 +785,6 @@ namespace examinationAPI.Migrations
                     b.Navigation("Choices");
 
                     b.Navigation("ExamQuestions");
-                });
-
-            modelBuilder.Entity("examinationAPI.Models.Role", b =>
-                {
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("examinationAPI.Models.User", b =>

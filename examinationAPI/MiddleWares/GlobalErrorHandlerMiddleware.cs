@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using examinationAPI.Models;
@@ -13,7 +14,14 @@ namespace examinationAPI.MiddleWares
         {
             try
             {
+                Stopwatch stopwatch = Stopwatch.StartNew();
                 await next(context);
+                stopwatch.Stop();
+
+                if (stopwatch.ElapsedMilliseconds > 1000)
+                {
+                    Console.WriteLine($"Request {context.Request.Path} processed in {stopwatch.ElapsedMilliseconds} ms");
+                }
             }
             catch (Exception ex)
             {

@@ -13,7 +13,7 @@ namespace examinationAPI.Models
 
         public int? PrerequisiteCourseId { get; set; }
         public Course? PrerequisiteCourse { get; set; }
-        public ICollection<Course> DependentCourses { get; set; } = new List<Course>();
+        public HashSet<Course>? DependentCourses { get; set; } 
 
         public HashSet<UserCourse>? UserCourses { get; set; }
         public HashSet<Exam>? Exams { get; set; }

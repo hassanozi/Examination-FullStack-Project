@@ -10,21 +10,30 @@ namespace examinationAPI.MiddleWares
     {
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            try
+            if(context.Request.Method.Equals("GET", StringComparison.OrdinalIgnoreCase))
             {
-                _context.Database.BeginTransaction();
                 await next(context);
-                _context.Database.CommitTransaction();
+                return;
             }
-            catch (Exception ex)
+
+            using ( var transaction = await _context.Database.BeginTransactionAsync())
             {
-                _context.Database.RollbackTransaction();
-                throw new Exception("An error occured", ex);
+                try
+                    {
+                        await next(context);
+                        await transaction.CommitAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        await transaction.RollbackAsync();
+                        throw new Exception(ex.Message);
+                    }
+                    // finally
+                    // {
+                    //     await transaction.CommitAsync();
+                    // }
             }
-            finally
-            {
-                _context.Database.CommitTransaction();
-            }
+            
         }
     }
 }

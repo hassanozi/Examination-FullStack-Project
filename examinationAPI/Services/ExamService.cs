@@ -10,9 +10,8 @@ namespace examinationAPI.Services
     {
         public IEnumerable<GetExamsDTO> GetExams()
         {
-            var examEntities = examRepo.GetAll();
-            var examDTOs = examEntities.Map<GetExamsDTO>();
-            return examDTOs;
+            var examEntities = examRepo.GetAll().Map<GetExamsDTO>();
+            return examEntities;
         }
 
         public async Task<bool> AddExamAsync(AddExamDTO addExamDTO)

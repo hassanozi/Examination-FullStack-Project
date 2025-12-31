@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace examinationAPI.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : BaseModel
+    public class Repository<T> : IRepository<T> where T : BaseModel 
     {
         private readonly Context _context;
         private readonly DbSet<T> _dbset;
@@ -49,11 +49,17 @@ namespace examinationAPI.Repositories
 
         public Task<T?> GetWithTrackingById(int id)
         {
+            return GetWithTracking(x => x.Id == id && !x.IsDeleted);
+        }
+
+        public Task<T?> GetWithTracking(Expression<Func<T, bool>> predicate)
+        {
             return _dbset
-                .Where(x => !x.IsDeleted && x.Id == id)
+                .Where(predicate)
                 .AsTracking()
                 .FirstOrDefaultAsync();
         }
+
 
         public void HardDelete(int id)
         {

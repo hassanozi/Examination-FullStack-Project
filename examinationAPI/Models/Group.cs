@@ -7,7 +7,11 @@ namespace examinationAPI.Models
 {
     public class Group : BaseModel
     {
-        public required string GroupName { get; set; }
-        public HashSet<UserGroup> UserGroups { get; set; }
+        public required string Name { get; set; }
+        public HashSet<UserGroup> UserGroups { get; set; } = new(); // Users in the group
+        public HashSet<GroupExam> GroupExams { get; set; } = new(); // Exams assigned to the group
     }
+
+
+
 }

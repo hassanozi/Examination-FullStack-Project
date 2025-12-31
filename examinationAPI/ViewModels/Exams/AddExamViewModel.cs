@@ -18,7 +18,6 @@ namespace examinationAPI.ViewModels.Exams
         public DateTime Schedule { get; set; }
         public DifficultyLevel DifficultyLevel { get; set; }
         public CategoryType CategoryType { get; set; }
-        public required string GroupName { get; set; }
-        public TimeOnly TimeSubmitted { get; set; }
+        
     }
 }

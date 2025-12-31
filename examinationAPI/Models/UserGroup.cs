@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 namespace examinationAPI.Models
 {
     public class UserGroup : BaseModel
-    {
-        public int UserId { get; set; }
-        public required User User{ get; set; }
-        public int GroupId { get; set; } 
-        public required Group Group{ get; set; }
-    }
+{
+    public int UserId { get; set; }
+    public User User { get; set; }
+
+    public int GroupId { get; set; }
+    public Group Group { get; set; }
+}
+
 }

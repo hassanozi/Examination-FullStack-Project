@@ -12,8 +12,8 @@ namespace examinationAPI.Models
         public bool IsRightAnswer { get; set; }
 
 
-        public int QuestionsId { get; set; }
-        public required Question Questions { get; set; }
+        public int? QuestionsId { get; set; }
+        public  Question? Questions { get; set; }
         
     }
 }

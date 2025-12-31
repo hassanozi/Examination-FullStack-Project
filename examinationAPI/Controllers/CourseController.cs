@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using AutoMapper;
 using examinationAPI.DTOs.Courses;
+using examinationAPI.Helpers;
 using examinationAPI.Models;
 using examinationAPI.Services;
 using examinationAPI.ViewModels;
@@ -23,6 +24,11 @@ namespace examinationAPI.Controllers
         {
             // var predicate = serv.MyPredicateBuilder(courseid, courseName, courseHourse);
             var query = serv.GetAllCourses(orderBy, desc);
+
+            if (query == null || !query.Any())
+            {
+                return new ResponseViewModel<IEnumerable<GetAllCoursesViewModel>>() {Data = null, IsSuccess = false, Message = "No courses found", errorCode = ErrorCode.CourseNotFound};
+            }
 
             var coursesViewModel = mapper.Map<IEnumerable<GetAllCoursesViewModel>>(query);
 
@@ -78,9 +84,10 @@ namespace examinationAPI.Controllers
         }
 
         [HttpPost]
-        public bool update(Course course)
+        public async Task<bool> update(UpdateCourseViewModel updateCourseViewModel)
         {
-            return serv.update(course);
+            var course = updateCourseViewModel.MapOne<UpdateCourseDTO>();
+            return await serv.Update(course);
         }
         // [HttpPost]
         // public bool AssignExamToCourse(int courseId, int examId)

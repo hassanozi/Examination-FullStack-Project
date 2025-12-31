@@ -21,15 +21,37 @@ namespace examinationAPI.Data
         DbSet<UserExam> UserExams { get; set; }
         DbSet<Answer> Answers { get; set; }
         DbSet<UserCourse> UserCourses { get; set; }
-        DbSet<Role> Roles { get; set; }
-        DbSet<Permission> Permissions { get; set; }
-        DbSet<RolePermission> RolePermissions { get; set; }
+       
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(Context).Assembly);
         }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var entries = ChangeTracker.Entries<BaseModel>();
+
+            foreach (var entry in entries)
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = DateTime.UtcNow;
+                    entry.Entity.UpdatedAt = DateTime.UtcNow;
+                }
+                else if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.UpdatedAt = DateTime.UtcNow;
+
+                    // Prevent CreatedAt from being overwritten
+                    entry.Property(e => e.CreatedAt).IsModified = false;
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
 
     }
 }

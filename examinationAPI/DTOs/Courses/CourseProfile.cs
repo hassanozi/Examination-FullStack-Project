@@ -21,6 +21,8 @@ namespace examinationAPI.DTOs.Courses
             CreateMap<Course, GetCourseDTO>().ReverseMap();
             CreateMap<AddPreRequisetCourseDTO,Course>().ReverseMap();
             CreateMap<AddPreRequisetCourseViewModel,AddPreRequisetCourseDTO>().ReverseMap();
+            CreateMap<UpdateCourseDTO,Course>().ReverseMap();
+            CreateMap<UpdateCourseDTO,UpdateCourseViewModel>().ReverseMap();
 
             
         }

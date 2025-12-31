@@ -1,101 +1,121 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import React from 'react'
-import { useForm } from 'react-hook-form';
-import InputLabel from '@mui/material/InputLabel';
-import Select, { type SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import React from "react";
+import { Link } from "react-router-dom";
+import logo from "../../../../assets/images/Logo-white.svg";
+import auth from "../../../../assets/images/Auth_Image.svg";
+import signin from "../../../../assets/images/signin-ico.svg";
+import signup from "../../../../assets/images/signup-ico.svg";
+import "./Register.module.css"; // reuse same styles
 
 export default function Register() {
-
-  const [role, setRole] = React.useState('');
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setRole(event.target.value as string);
-  };
-
-  let {register,formState:{errors}, handleSubmit} = useForm();
-  
-  let onSubmit = (data:any) => {
-    console.log(data);
-  }
-
-  
-
   return (
-        <Stack sx={{width:'70',margin:'auto'}}>
-              <Typography variant="subtitle1">Create new acccount</Typography>
-              <Typography variant='h5' sx={{marginBottom:'2rem'}}>Register</Typography> 
-              
-              <form onSubmit={handleSubmit(onSubmit)}>
+    <section
+      className="bg-dark"
+      style={{ backgroundColor: "#121212", minHeight: "100vh", width: "100vw" }}
+    >
+      <div className="container-fluid p-4 px-5">
+        <div className="row gx-0">
 
-                <Box sx={{ width: '100%' }}>
-                  <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    <Grid size={6}>
-                      <Stack>
-                        <InputLabel id="demo-simple-select-label">First Name</InputLabel>
-                        <TextField {...register('firstName',{required:'This is rquired filed'})} type='text'  sx={{marginBottom:'1rem' }}/>
-                       {errors.firstName && <Typography variant='body2' color='red'>{errors.firstName.message?.toString()}</Typography>}
-                      </Stack>
-                    </Grid>
-                    <Grid size={6}>
-                      <Stack>
-                        <InputLabel id="demo-simple-select-label">Last Name</InputLabel>
-                        <TextField {...register('lastName',{required:'This is rquired filed'})} type='text'    sx={{marginBottom:'1rem'}}/>
-                        {errors.lastName && <Typography variant='body2' color='red'>{errors.lastName.message?.toString()}</Typography>}
-                      </Stack>
-                    </Grid>
-                    
-                  </Grid>
-                </Box>
-                
-                <Box sx={{ width: '100%' }}>
-                  <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    <Grid size={12}>
-                      <Stack>
-                        <InputLabel id="demo-simple-select-label">Email</InputLabel>
-                        <TextField {...register('email',{required:'This is rquired filed'})} type='email'   sx={{marginBottom:'1rem'}}/>
-                        {errors.email && <Typography variant='body2' color='red'>{errors.email.message?.toString()}</Typography>}
-                      </Stack>
-                    </Grid>
-                    <Grid size={12}>
-                      <Stack>
-                        <InputLabel id="demo-simple-select-label">Password</InputLabel>
-                        <TextField {...register('password',{required:'This is rquired filed'})} type='password'   sx={{marginBottom:'1rem'}}/>
-                        {errors.password && <Typography variant='body2' color='red'>{errors.password.message?.toString()}</Typography>}
-                      </Stack>
-                    </Grid>
-                    <Grid size={12}>
-                      <Stack>
-                        <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                          <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            // value={age}
-                            label="Role"
-                            onChange={handleChange}
-                          >
-                            <MenuItem value={'Admin'}>Admin</MenuItem>
-                            <MenuItem value={'Student'}>Student</MenuItem>
-                          </Select>
-                        {errors.role && <Typography variant='body2' color='red'>{errors.role.message?.toString()}</Typography>}
-                      </Stack>
-                    </Grid>
+          {/* Left Side */}
+          <div className="col-12 col-md-7 col-lg-6 full_height px-5">
+            <div>
+              <img src={logo} className="w-25" alt="Logo" />
+            </div>
 
-                  </Grid>
-                </Box>
-                
-    
-                
+            <h2 className="text-mainColor_lightGreen my-4 text-white">
+              Continue your learning journey with QuizWiz!
+            </h2>
 
-                <Button variant="contained" fullWidth sx={{marginBottom:'1rem',backgroundColor:'#EF6B4A',marginTop:5}}>Register</Button>
-                <Button type='submit' variant="outlined" fullWidth sx={{marginBottom:'1rem',marginTop:5}} >Login</Button>
-              </form>
-              
-        </Stack>
-  )
+            {/* Switch buttons */}
+            <div className="my-1 mb-3 py-4 d-flex gap-3">
+
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <button className="Sign d-flex align-items-center gap-2">
+                  <img src={signin} alt="Sign In" width={30} />
+                  Sign In
+                </button>
+              </Link>
+
+              <button className="Sign active d-flex align-items-center gap-2">
+                <img src={signup} alt="Sign Up" width={30} />
+                Sign Up
+              </button>
+
+            </div>
+
+            {/* Register Form */}
+            <form className="w-100 mt-4">
+
+              <div className="d-flex gap-3">
+                <div className="form-item w-100">
+                  <label className="text-white">First Name</label>
+                  <input
+                    type="text"
+                    className="form-control bg-transparent text-white border border-4"
+                    placeholder="First name"
+                  />
+                </div>
+
+                <div className="form-item w-100">
+                  <label className="text-white">Last Name</label>
+                  <input
+                    type="text"
+                    className="form-control bg-transparent text-white border border-4"
+                    placeholder="Last name"
+                  />
+                </div>
+              </div>
+
+              <div className="form-item mt-3">
+                <label className="text-white">Email Address</label>
+                <input
+                  type="email"
+                  className="form-control bg-transparent text-white border border-4"
+                  placeholder="Enter your email"
+                />
+              </div>
+
+              <div className="form-item mt-3">
+                <label className="text-white">Select Role</label>
+                <select className="form-control bg-transparent text-white border border-4">
+                  <option>Student</option>
+                  <option>Instructor</option>
+                </select>
+              </div>
+
+              <div className="form-item mt-3">
+                <label className="text-white">Password</label>
+                <input
+                  type="password"
+                  className="form-control bg-transparent text-white border border-4"
+                  placeholder="Password"
+                />
+              </div>
+
+              <div className="mt-4">
+                <button className="submit" type="submit">
+                  <span className="text me-1">Sign Up</span>
+                  <span><i className="fa-solid fa-circle-check"></i></span>
+                  <div className="bg-true">
+                    <i className="fa-solid fa-circle-check"></i>
+                  </div>
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+          {/* Right Side */}
+          <div
+            className="col-md-5 col-lg-6 border rounded-5 d-none d-md-flex justify-content-center align-items-center"
+            style={{ backgroundColor: "#FFF9C4" }}
+          >
+            <div className="w-75" id="image-container">
+              <img src={auth} className="w-100" alt="Auth" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
 }

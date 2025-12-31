@@ -13,9 +13,8 @@ namespace examinationAPI.Services
     {
         public IEnumerable<GetQuestionsDTO> GetAllQuestions()
         {
-            var questionsData = questionRepo.GetAll();
-            var questionsDTO = questionsData.Map<GetQuestionsDTO>();
-            return questionsDTO;
+            var questionsData = questionRepo.GetAll().Map<GetQuestionsDTO>();
+            return questionsData;
         }
 
         public IEnumerable<GetQuestionsDTO> GetCourseQuestions(int courseId)

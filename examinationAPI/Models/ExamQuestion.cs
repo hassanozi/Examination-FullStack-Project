@@ -8,12 +8,12 @@ namespace examinationAPI.Models
     public class ExamQuestion : BaseModel
     {
         public int ExamId { get; set; }
-        public required Exam Exams { get; set; }
+        public  Exam Exams { get; set; }
 
         public int QuestionId { get; set; }
-        public required Question Questions { get; set; }
+        public  Question Questions { get; set; }
 
-        public required HashSet<Answer> Answers { get; set; }
+        public  HashSet<Answer> Answers { get; set; }
 
     }
 }
