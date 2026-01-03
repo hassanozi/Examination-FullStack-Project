@@ -9,7 +9,7 @@ namespace examinationAPI.Repositories
 {
     public interface IRepository<T> where T : BaseModel
     {
-        Task<T> Get(Expression<Func<T,bool>> expression);
+        Task<T?> Get(Expression<Func<T,bool>> expression);
         IQueryable<T> GetAll();
         Task<T?> GetById(int id);
         Task<T?> GetWithTrackingById(int id);

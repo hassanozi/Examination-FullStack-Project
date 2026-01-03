@@ -32,7 +32,7 @@ namespace examinationAPI.Repositories
             Update(entity);
         }
 
-        public async Task<T> Get(Expression<Func<T, bool>> expression)
+        public async Task<T?> Get(Expression<Func<T, bool>> expression)
         {
             return await GetAll().Where(expression).FirstOrDefaultAsync();
         }

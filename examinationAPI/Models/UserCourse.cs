@@ -17,6 +17,7 @@ namespace examinationAPI.Models
         public CourseRole Role { get; set; }
 
         public DateTime EnrolledAt { get; set; }
+        public DateTime AssignedAt { get; set; }
         public double? FinalGrade { get; set; }
     }
 
